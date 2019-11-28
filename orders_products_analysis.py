@@ -39,7 +39,17 @@ for order in orders:
         max_items = nb_item
         
 sum_items = dataItems["order_item_id"].sum()
-average_basket = sum_items / len(dataOrders)
+average_basket = sum_items // len(dataOrders) # use of integer division
+
+frequency_products = (dataItems["product_id"].value_counts() / len(dataItems) * 100).sort_values(ascending=False)
+frequency_products = pd.DataFrame(frequency_products)
+frequency_products = frequency_products.rename(columns = {'Index':'product_iiid', 'product_id':'frequency'})
+mean_frequency_products = frequency_products.mean()
+most_frequency_products = frequency_products[frequency_products["frequency"] >= 0.1]
+
+categories_frequent_products = dataProducts.loc[dataProducts["product_id"].isin (most_frequency_products.index.values.tolist())]["product_category_name"]
+
+
 
 
         
