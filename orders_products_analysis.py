@@ -10,9 +10,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-
-
-
 dataOrders = pd.read_csv("C:\\Users\\Admin\\Desktop\\Home\\Studies\\PFE\\ML_eCommerce_sales\\data\\orders.csv")
 data_columns = dataOrders.columns.tolist()
 dataItems = pd.read_csv("C:\\Users\\Admin\\Desktop\\Home\\Studies\\PFE\\ML_eCommerce_sales\\data\\items.csv")
@@ -47,7 +44,7 @@ frequency_products = (dataItems["product_id"].value_counts() / len(dataItems) * 
 frequency_products = pd.DataFrame(frequency_products)
 frequency_products = frequency_products.rename(columns = {'Index':'product_iiid', 'product_id':'frequency'})
 mean_frequency_products = frequency_products.mean()
-most_frequency_products = frequency_products[frequency_products["frequency"] >= 0.1]
+best_product = frequency_products[frequency_products["frequency"] >= 0.1]
 
 categories_frequent_products = dataProducts.loc[dataProducts["product_id"].isin (most_frequency_products.index.values.tolist())]["product_category_name"]
 
@@ -86,6 +83,16 @@ plt.title("Evolution en fonction d'année")
 plt.xlabel("Année")
 plt.ylabel("Nb de ventes")
 plt.show()
+
+# the best sellers 
+
+frequency_sellers = ((dataItems["seller_id"].value_counts() / len(dataItems)) * 100).sort_values(ascending=False)
+frequency_sellers = pd.DataFrame(frequency_sellers)
+frequency_sellers = frequency_products.rename(columns = {'seller_id':'frequency'})
+mean_frequency_sellers = frequency_sellers.mean()
+best_sellers = (frequency_sellers[frequency_sellers["frequency"] >= 0.1]).index.values.tolist()
+
+
 
 
 
