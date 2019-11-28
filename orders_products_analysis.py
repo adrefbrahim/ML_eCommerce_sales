@@ -6,6 +6,8 @@ Created on Wed Nov 27 22:47:41 2019
 """
 
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 
@@ -48,6 +50,43 @@ mean_frequency_products = frequency_products.mean()
 most_frequency_products = frequency_products[frequency_products["frequency"] >= 0.1]
 
 categories_frequent_products = dataProducts.loc[dataProducts["product_id"].isin (most_frequency_products.index.values.tolist())]["product_category_name"]
+
+# evolution over time : months and years 
+
+# ------- months -------
+order_timestamp = dataOrders.loc[:,"order_purchase_timestamp"]
+order_timestamp = pd.to_datetime(order_timestamp)
+months = order_timestamp.dt.month
+
+order_evolution_months = months.value_counts().sort_index()
+order_evolution_months = pd.DataFrame(order_evolution_months)
+mean_order_evolution_months = np.mean(order_evolution_months)
+y_pos = np.arange(len(order_evolution_months.index.values.tolist()))
+
+plt.bar(y_pos, order_evolution_months["order_purchase_timestamp"])
+plt.xticks(y_pos, order_evolution_months.index.values.tolist())
+plt.axhline(y=mean_order_evolution_months[0], color='r', linestyle='--')
+plt.title("Evolution en fonction de mois")
+plt.xlabel("Mois")
+plt.ylabel("Nb de ventes")
+plt.show()
+
+# ----- year ------
+years = order_timestamp.dt.year
+
+order_evolution_years = years.value_counts().sort_index()
+order_evolution_years = pd.DataFrame(order_evolution_years)
+
+y_pos = np.arange(len(order_evolution_years.index.values.tolist()))
+
+plt.bar(y_pos, order_evolution_years["order_purchase_timestamp"])
+plt.xticks(y_pos, order_evolution_years.index.values.tolist())
+plt.axhline(y=mean_order_evolution_months[0], color='r', linestyle='--')
+plt.title("Evolution en fonction d'année")
+plt.xlabel("Année")
+plt.ylabel("Nb de ventes")
+plt.show()
+
 
 
 
