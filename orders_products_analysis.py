@@ -46,7 +46,7 @@ frequency_products = frequency_products.rename(columns = {'Index':'product_iiid'
 mean_frequency_products = frequency_products.mean()
 best_product = frequency_products[frequency_products["frequency"] >= 0.1]
 
-categories_frequent_products = dataProducts.loc[dataProducts["product_id"].isin (most_frequency_products.index.values.tolist())]["product_category_name"]
+categories_frequent_products = dataProducts.loc[dataProducts["product_id"].isin (best_product.index.values.tolist())]["product_category_name"]
 
 # evolution over time : months and years 
 
