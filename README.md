@@ -1,4 +1,4 @@
-# TECHNICAL TEST : ANALYZE E-COMMERCE DATA
+# ANALYZE E-COMMERCE DATA
 
 You were recently hired as Data Scientist in an E-commerce company. Your mission is to provide insights on sales.
 
